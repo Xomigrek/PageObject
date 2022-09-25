@@ -1,0 +1,1 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/nyhx7xunsxfeqs1a?svg=true)](https://ci.appveyor.com/project/Xomigrek/pageobject)
