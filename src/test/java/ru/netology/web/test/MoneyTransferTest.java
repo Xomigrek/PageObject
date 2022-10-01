@@ -46,7 +46,7 @@ public class MoneyTransferTest {
     }
 
     @ParameterizedTest
-    @CsvSource({"10001", "10002"})
+    @CsvSource({"-100", "100"})
     void shouldTransferToSecondCard(int sum) {
         var cardInfo1 = DataHelper.getCardInfo1();
         var cardInfo2 = DataHelper.getCardInfo2();

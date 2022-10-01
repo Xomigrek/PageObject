@@ -61,9 +61,9 @@ public class DashboardPage {
     public DashboardPage depositSecondCard(DataHelper.CardsInfo info, int sum) {
         var balance = getCardBalance(info.getCardId());
         var transferSum = balance - sum;
-//        if (transferSum > balance || transferSum < 0) {
-//            transferSum = balance;
-//        }
+        if (transferSum > balance || transferSum < 0) {
+            transferSum = balance;
+        }
         depositButton2.click();
         amount.setValue(String.valueOf(transferSum));
         from.setValue(info.getCard());
@@ -74,7 +74,7 @@ public class DashboardPage {
     public DashboardPage checkBalance(DataHelper.CardsInfo info) {
         cards.findBy(attribute("data-test-id", info.getCardId())).shouldBe(visible);
         var balance = getCardBalance(info.getCardId());
-        Assertions.assertTrue(balance > 0);
+        Assertions.assertTrue(balance >= 0);
         return this;
     }
 }
