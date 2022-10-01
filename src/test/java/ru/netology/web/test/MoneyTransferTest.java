@@ -33,7 +33,7 @@ public class MoneyTransferTest {
 //        verificationPage.validVerify(verificationCode);
 //    }
     @ParameterizedTest
-    @CsvSource({"-100", "100"})
+    @CsvSource({"9999", "9998", "500", "600"})
     void shouldTransferToFirsCard(int sum) {
         var cardInfo1 = DataHelper.getCardInfo1();
         var cardInfo2 = DataHelper.getCardInfo2();
@@ -46,7 +46,7 @@ public class MoneyTransferTest {
     }
 
     @ParameterizedTest
-    @CsvSource({"-100", "100"})
+    @CsvSource({"9999", "9998", "500", "600"})
     void shouldTransferToSecondCard(int sum) {
         var cardInfo1 = DataHelper.getCardInfo1();
         var cardInfo2 = DataHelper.getCardInfo2();

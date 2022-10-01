@@ -55,6 +55,8 @@ public class DashboardPage {
         amount.setValue(String.valueOf(transferSum));
         from.setValue(info.getCard());
         transfer.click();
+        var newBalance = balance - transferSum;
+        Assertions.assertEquals(getCardBalance(info.getCardId()), newBalance);
         return this;
     }
 
@@ -68,6 +70,8 @@ public class DashboardPage {
         amount.setValue(String.valueOf(transferSum));
         from.setValue(info.getCard());
         transfer.click();
+        var newBalance = balance - transferSum;
+        Assertions.assertEquals(getCardBalance(info.getCardId()), newBalance);
         return this;
     }
 
