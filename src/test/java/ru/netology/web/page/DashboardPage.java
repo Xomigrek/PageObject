@@ -45,40 +45,13 @@ public class DashboardPage {
         return Integer.parseInt(value);
     }
 
-    public DashboardPage depositFirstCard(DataHelper.CardsInfo info, int sum) {
-        var balance = getCardBalance(info.getCardId());
-        var transferSum = balance - sum;
-        if (transferSum > balance || transferSum < 0) {
-            transferSum = balance;
-        }
+    public TransferPage clickFirstCard() {
         depositButton1.click();
-        amount.setValue(String.valueOf(transferSum));
-        from.setValue(info.getCard());
-        transfer.click();
-        var newBalance = balance - transferSum;
-        Assertions.assertEquals(getCardBalance(info.getCardId()), newBalance);
-        return this;
+        return new TransferPage();
     }
 
-    public DashboardPage depositSecondCard(DataHelper.CardsInfo info, int sum) {
-        var balance = getCardBalance(info.getCardId());
-        var transferSum = balance - sum;
-        if (transferSum > balance || transferSum < 0) {
-            transferSum = balance;
-        }
+    public TransferPage clickSecondCard() {
         depositButton2.click();
-        amount.setValue(String.valueOf(transferSum));
-        from.setValue(info.getCard());
-        transfer.click();
-        var newBalance = balance - transferSum;
-        Assertions.assertEquals(getCardBalance(info.getCardId()), newBalance);
-        return this;
-    }
-
-    public DashboardPage checkBalance(DataHelper.CardsInfo info) {
-        cards.findBy(attribute("data-test-id", info.getCardId())).shouldBe(visible);
-        var balance = getCardBalance(info.getCardId());
-        Assertions.assertTrue(balance >= 0);
-        return this;
+        return new TransferPage();
     }
 }

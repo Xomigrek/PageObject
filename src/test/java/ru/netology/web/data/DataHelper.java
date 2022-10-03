@@ -1,6 +1,7 @@
 package ru.netology.web.data;
 
 import lombok.Value;
+import ru.netology.web.page.DashboardPage;
 
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -31,16 +32,23 @@ public class DataHelper {
     public static class CardsInfo {
         private String card;
         private String cardId;
-        private String CardMask;
-
-
     }
 
     public static CardsInfo getCardInfo1() {
-        return new CardsInfo("5559000000000001", $$(".list__item div").first().getAttribute("data-test-id"),"0001");
+        return new CardsInfo("5559000000000001", "92df3f1c-a033-48e6-8390-206f6b1f56c0");
     }
 
     public static CardsInfo getCardInfo2() {
-        return new CardsInfo("5559000000000002", $$(".list__item div").last().getAttribute("data-test-id"),"0002");
+        return new CardsInfo("5559000000000002", "0f3f5c2a-249e-4c3d-8287-09f7a039391d");
+    }
+
+    public static int transferSum(CardsInfo info, int sum) {
+        DashboardPage dash = new DashboardPage();
+        var balance = dash.getCardBalance(info.getCardId());
+        int transfer = balance - sum;
+        if (transfer > balance || transfer < 0) {
+            transfer = balance;
+        }
+        return transfer;
     }
 }

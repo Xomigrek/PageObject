@@ -22,27 +22,21 @@ public class MoneyTransferTest {
                 .validVerify(verificationCode);
     }
 
-    //    @Test
-//    void shouldTransferMoneyBetweenOwnCardsV1() {
-//        open("http://localhost:9999");
-//        var loginPage = new LoginPage();
-////    var loginPage = open("http://localhost:9999", LoginPageV1.class);
-//        var authInfo = DataHelper.getAuthInfo();
-//        var verificationPage = loginPage.validLogin(authInfo);
-//        var verificationCode = DataHelper.getVerificationCodeFor(authInfo);
-//        verificationPage.validVerify(verificationCode);
-//    }
     @ParameterizedTest
     @CsvSource({"9999", "9998", "500", "600"})
     void shouldTransferToFirsCard(int sum) {
         var cardInfo1 = DataHelper.getCardInfo1();
         var cardInfo2 = DataHelper.getCardInfo2();
+        var transferSum = DataHelper.transferSum(cardInfo2, sum);
         var dashboardPage = new DashboardPage();
-        var firstCardBalance = dashboardPage.getCardBalance(cardInfo1.getCardId());
-        var secondCardBalance = dashboardPage.getCardBalance(cardInfo2.getCardId());
-        dashboardPage.depositFirstCard(cardInfo2, sum)
-                .checkBalance(cardInfo1)
-                .checkBalance(cardInfo2);
+        var startFirstCardBalance = dashboardPage.getCardBalance(cardInfo1.getCardId());
+        var startSecondCardBalance = dashboardPage.getCardBalance(cardInfo2.getCardId());
+        dashboardPage.clickFirstCard()
+                .depositCard(cardInfo2, transferSum);
+        var finishFirstCardBalance = dashboardPage.getCardBalance(cardInfo1.getCardId());
+        var finishSecondCardBalance = dashboardPage.getCardBalance(cardInfo2.getCardId());
+        Assertions.assertEquals(finishFirstCardBalance, startFirstCardBalance + transferSum);
+        Assertions.assertEquals(finishSecondCardBalance, startSecondCardBalance - transferSum);
     }
 
     @ParameterizedTest
@@ -50,11 +44,15 @@ public class MoneyTransferTest {
     void shouldTransferToSecondCard(int sum) {
         var cardInfo1 = DataHelper.getCardInfo1();
         var cardInfo2 = DataHelper.getCardInfo2();
+        var transferSum = DataHelper.transferSum(cardInfo1, sum);
         var dashboardPage = new DashboardPage();
-        var firstCardBalance = dashboardPage.getCardBalance(cardInfo1.getCardId());
-        var secondCardBalance = dashboardPage.getCardBalance(cardInfo2.getCardId());
-        dashboardPage.depositSecondCard(cardInfo1, sum)
-                .checkBalance(cardInfo1)
-                .checkBalance(cardInfo2);
+        var startFirstCardBalance = dashboardPage.getCardBalance(cardInfo1.getCardId());
+        var startSecondCardBalance = dashboardPage.getCardBalance(cardInfo2.getCardId());
+        dashboardPage.clickSecondCard()
+                .depositCard(cardInfo1, transferSum);
+        var finishFirstCardBalance = dashboardPage.getCardBalance(cardInfo1.getCardId());
+        var finishSecondCardBalance = dashboardPage.getCardBalance(cardInfo2.getCardId());
+        Assertions.assertEquals(finishFirstCardBalance, startFirstCardBalance - transferSum);
+        Assertions.assertEquals(finishSecondCardBalance, startSecondCardBalance + transferSum);
     }
 }
