@@ -35,11 +35,11 @@ public class DataHelper {
     }
 
     public static CardsInfo getCardInfo1() {
-        return new CardsInfo("5559000000000001", "92df3f1c-a033-48e6-8390-206f6b1f56c0");
+        return new CardsInfo("5559000000000001", "1");
     }
 
     public static CardsInfo getCardInfo2() {
-        return new CardsInfo("5559000000000002", "0f3f5c2a-249e-4c3d-8287-09f7a039391d");
+        return new CardsInfo("5559000000000002", "2");
     }
 
     public static int transferSum(CardsInfo info, int sum) {
