@@ -24,7 +24,7 @@ public class DataHelper {
         private String code;
     }
 
-    public static VerificationCode getVerificationCodeFor(AuthInfo authInfo) {
+    public static VerificationCode getVerificationCodeFor() {
         return new VerificationCode("12345");
     }
 

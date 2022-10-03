@@ -18,9 +18,9 @@ public class TransferPage {
     public TransferPage () {heading.shouldBe(visible);
     }
 
-    public DashboardPage depositCard (DataHelper.CardsInfo info, int sum) {
-        amount.setValue(String.valueOf(sum));
-        from.setValue(info.getCard());
+    public DashboardPage depositCard (String sum, String cardNumber) {
+        amount.setValue(sum);
+        from.setValue(cardNumber);
         transfer.click();
         return new DashboardPage();
     }

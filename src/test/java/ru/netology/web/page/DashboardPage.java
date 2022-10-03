@@ -54,4 +54,9 @@ public class DashboardPage {
         depositButton2.click();
         return new TransferPage();
     }
+
+    public DashboardPage checkCardBalance (String id) {
+        getCardBalance(id);
+        return this;
+    }
 }
