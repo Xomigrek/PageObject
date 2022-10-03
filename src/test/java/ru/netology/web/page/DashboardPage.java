@@ -3,7 +3,6 @@ package ru.netology.web.page;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import lombok.val;
-import org.junit.jupiter.api.Assertions;
 import ru.netology.web.data.DataHelper;
 
 import static com.codeborne.selenide.Condition.*;
@@ -53,5 +52,9 @@ public class DashboardPage {
     public TransferPage clickSecondCard() {
         depositButton2.click();
         return new TransferPage();
+    }
+    public int checkBalance (DataHelper.CardsInfo info) {
+        var balance = getCardBalance(info.getCardId());
+        return balance;
     }
 }

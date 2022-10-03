@@ -33,10 +33,8 @@ public class MoneyTransferTest {
         var startSecondCardBalance = dashboardPage.getCardBalance(cardInfo2.getCardId());
         dashboardPage.clickFirstCard()
                 .depositCard(cardInfo2, transferSum);
-        var finishFirstCardBalance = dashboardPage.getCardBalance(cardInfo1.getCardId());
-        var finishSecondCardBalance = dashboardPage.getCardBalance(cardInfo2.getCardId());
-        Assertions.assertEquals(finishFirstCardBalance, startFirstCardBalance + transferSum);
-        Assertions.assertEquals(finishSecondCardBalance, startSecondCardBalance - transferSum);
+        Assertions.assertEquals(dashboardPage.checkBalance(cardInfo1), startFirstCardBalance + transferSum);
+        Assertions.assertEquals(dashboardPage.checkBalance(cardInfo2), startSecondCardBalance - transferSum);
     }
 
     @ParameterizedTest
@@ -50,9 +48,7 @@ public class MoneyTransferTest {
         var startSecondCardBalance = dashboardPage.getCardBalance(cardInfo2.getCardId());
         dashboardPage.clickSecondCard()
                 .depositCard(cardInfo1, transferSum);
-        var finishFirstCardBalance = dashboardPage.getCardBalance(cardInfo1.getCardId());
-        var finishSecondCardBalance = dashboardPage.getCardBalance(cardInfo2.getCardId());
-        Assertions.assertEquals(finishFirstCardBalance, startFirstCardBalance - transferSum);
-        Assertions.assertEquals(finishSecondCardBalance, startSecondCardBalance + transferSum);
+        Assertions.assertEquals(dashboardPage.checkBalance(cardInfo1), startFirstCardBalance - transferSum);
+        Assertions.assertEquals(dashboardPage.checkBalance(cardInfo2), startSecondCardBalance + transferSum);
     }
 }
