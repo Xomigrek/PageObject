@@ -1,8 +1,10 @@
 package ru.netology.web.steps;
 
+import com.codeborne.selenide.Selenide;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Пусть;
 import io.cucumber.java.ru.Тогда;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import ru.netology.web.data.DataHelper;
 import ru.netology.web.page.DashboardPage;
@@ -20,7 +22,7 @@ public class Steps {
 
     @Пусть ("пользователь залогинен с именем {string} и паролем {string}")
     public void loginWithNameAndPassword (String login, String password) {
-        open("http://localhost:9999");
+        loginPage = Selenide.open("http://localhost:9999" , LoginPage.class);
         verify = loginPage.validLogin(login, password);
         dash = verify.validVerify("12345");
     }
@@ -29,8 +31,9 @@ public class Steps {
         transfer = dash.clickFirstCard();
         dash = transfer.depositCard(sum, cardNumber);
     }
-    @Тогда ("баланс его {string} карты изs списка на главной странице должен стать {string} рублей")
+
+    @Тогда("баланс его карты {string} из списка на главной странице должен стать {string} рублей")
     public void checkBalance (String id, String balance) {
-        Assertions.assertEquals(dash.checkCardBalance(id),balance);
+        Assertions.assertEquals(StringUtils.deleteWhitespace(balance), Integer.toString(dash.checkCardBalance(id)));
     }
 }

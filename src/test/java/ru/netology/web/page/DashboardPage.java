@@ -1,5 +1,6 @@
 package ru.netology.web.page;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import lombok.val;
@@ -34,7 +35,7 @@ public class DashboardPage {
     }
 
     public int getCardBalance(String id) {
-        val text = cards.findBy(attribute("data-test-id", id)).text();
+        val text = cards.findBy(Condition.text(id)).text();
         return extractBalance(text);
     }
 
@@ -55,8 +56,8 @@ public class DashboardPage {
         return new TransferPage();
     }
 
-    public DashboardPage checkCardBalance (String id) {
-        getCardBalance(id);
-        return this;
+    public int checkCardBalance (String id) {
+        var balance = getCardBalance(id);
+        return balance;
     }
 }
